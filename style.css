@@ -1,0 +1,18 @@
+body,
+html {
+    padding: 0;
+    margin: 0;
+}
+
+.wrapper {
+    display: flex;
+}
+
+.wrapper .left {
+    width: 200px;
+}
+
+.wrapper .left .item {
+    height: 50px;
+    width: 200px;
+}

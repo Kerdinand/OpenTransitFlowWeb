@@ -6,7 +6,6 @@ export default class TrackWalker {
 	directionFlip: boolean = false;
 	constructor(location: BaseTrack) {
 		this.currentLocation = location;
-		console.log(this.currentLocation.uuid);
 	}
 
 	private checkDirectionFlip() {
@@ -49,5 +48,24 @@ export default class TrackWalker {
 			}
 		}
 		return console.log(this.currentLocation.uuid);
+	}
+
+	moveBackward() {
+		this.checkDirectionFlip();
+		if (this.directionFlip) {
+			if (this.currentLocation.outboundTrack) {
+				this.previousLocation = this.currentLocation;
+				this.previousLocation.setLowestColor();
+				this.currentLocation = this.currentLocation.outboundTrack;
+				this.currentLocation.MATERIAL.color.setHex(0xd1d1d1);
+			}
+		} else {
+			if (this.currentLocation.inboundTrack) {
+				this.previousLocation = this.currentLocation;
+				this.previousLocation.setLowestColor();
+				this.currentLocation = this.currentLocation.inboundTrack;
+				this.currentLocation.MATERIAL.color.setHex(0xd1d1d1);
+			}
+		}
 	}
 }

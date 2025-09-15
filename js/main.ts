@@ -94,6 +94,29 @@ function onItemClick(): void {
 		}
 	}
 
+	if (
+		createJunction &&
+		(circle = intersects[0].object) instanceof Mesh &&
+		Object.hasOwn(intersects[0].object.userData, 'isOpenForDivergingEnd')
+	) {
+		if (
+			circle.userData['isOpenForDivergingEnd'] &&
+			joinCircles.length === 0
+		) {
+			joinCircles.push(circle);
+			return;
+		}
+		if (
+			circle.userData['isOpenForDivergingEnd'] &&
+			joinCircles[0].uuid !== circle.uuid &&
+			circle.parent instanceof BaseTrack
+		) {
+			circle.parent.joinTwoTracks(scene, joinCircles[0], circle, true);
+			joinCircles.length = 0;
+			createJunction = false;
+		}
+	}
+
 	if (intersects[0].object.parent instanceof BaseTrack) {
 		currentItem = intersects[0].object.parent;
 		currentItem.MATERIAL.color.setHex(0xd1d1d1);
@@ -104,6 +127,7 @@ function onItemClick(): void {
 const gridHelper: GridHelper = new GridHelper(10, 10);
 let showGridHelper: boolean = false;
 let joinTracks = false;
+let createJunction = false;
 const joinCircles: Mesh[] = [];
 
 window.addEventListener('keydown', (e) => {
@@ -133,9 +157,14 @@ window.addEventListener('keydown', (e) => {
 		if (walker) walker.moveForward();
 		if (currentItem && !walker) walker = new TrackWalker(currentItem);
 	}
+	if (e.key.toLowerCase() === 'b') {
+		if (walker) walker.moveBackward();
+		if (currentItem && !walker) walker = new TrackWalker(currentItem);
+	}
 	if (e.key.toLowerCase() === 'j' && currentItem !== undefined) {
 		if (joinTracks) joinCircles.length = 0;
 		joinTracks = !joinTracks;
+		createJunction = false;
 	}
 	if (e.key.toLowerCase() === 'g') {
 		if (showGridHelper) scene.add(gridHelper);
@@ -147,6 +176,11 @@ window.addEventListener('keydown', (e) => {
 	}
 	if (e.key.toLowerCase() === 's') {
 		return currentItem.addNewTrackAtStart(scene);
+	}
+	if (e.key.toLocaleLowerCase() === 'y') {
+		if (joinTracks) joinCircles.length = 0;
+		createJunction = !createJunction;
+		joinTracks = false;
 	}
 	if (e.key.toLowerCase() === 't') {
 		return new TrackFactory(

@@ -47,7 +47,8 @@ export class BaseTrack extends Object3D {
 
 	inboundTrack?: BaseTrack;
 	outboundTrack?: BaseTrack;
-
+	inboundDiverging?: BaseTrack;
+	outboundDiverging?: BaseTrack;
 	constructor(
 		camera: OrthographicCamera,
 		domElement: HTMLCanvasElement,
@@ -187,7 +188,12 @@ export class BaseTrack extends Object3D {
 		return proj.multiplyScalar(2).sub(v).clone(); // reflection formula
 	}
 
-	joinTwoTracks(scene: Scene, startNode: Mesh, endNode: Mesh) {
+	joinTwoTracks(
+		scene: Scene,
+		startNode: Mesh,
+		endNode: Mesh,
+		createJunction: boolean = false
+	) {
 		if (
 			!(startNode.parent instanceof BaseTrack) ||
 			!(endNode.parent instanceof BaseTrack)
@@ -224,22 +230,40 @@ export class BaseTrack extends Object3D {
 			v3,
 			's'
 		);
+		if (!createJunction) {
+			if (startNode.name === 'end') {
+				startTrack.outboundTrack = newTrack;
+				newTrack.inboundTrack = startTrack;
+			} else {
+				startTrack.inboundTrack = newTrack;
+				newTrack.inboundTrack = startTrack;
+			}
 
-		if (startNode.name === 'end') {
-			startTrack.outboundTrack = newTrack;
-			newTrack.inboundTrack = startTrack;
+			if (endNode.name === 'end') {
+				endTrack.outboundTrack = newTrack;
+				newTrack.outboundTrack = endTrack;
+			} else {
+				endTrack.inboundTrack = newTrack;
+				newTrack.outboundTrack = endTrack;
+			}
 		} else {
-			startTrack.inboundTrack = newTrack;
-			newTrack.inboundTrack = startTrack;
+			if (startNode.name === 'end') {
+				startTrack.outboundDiverging = newTrack;
+				newTrack.inboundTrack = startTrack;
+			} else {
+				startTrack.inboundDiverging = newTrack;
+				newTrack.inboundTrack = startTrack;
+			}
+
+			if (endNode.name === 'end') {
+				endTrack.outboundDiverging = newTrack;
+				newTrack.outboundTrack = endTrack;
+			} else {
+				endTrack.inboundDiverging = newTrack;
+				newTrack.outboundTrack = endTrack;
+			}
 		}
 
-		if (endNode.name === 'end') {
-			endTrack.outboundTrack = newTrack;
-			newTrack.outboundTrack = endTrack;
-		} else {
-			endTrack.inboundTrack = newTrack;
-			newTrack.outboundTrack = endTrack;
-		}
 		startTrack.toggleCircle();
 		endTrack.toggleCircle();
 		scene.add(newTrack);
@@ -269,6 +293,9 @@ export class BaseTrack extends Object3D {
 			this.circleMeshP0.name = 'start';
 			this.circleMeshP0.userData.isOpenEnd =
 				this.inboundTrack === undefined;
+			this.circleMeshP0.userData.isOpenForDivergingEnd =
+				this.circleMeshP0.userData.isOpenEnd &&
+				this.circleMeshP0.userData.isOpenEnd;
 			this.circleMeshP1 = new Mesh(
 				new CircleGeometry(0.3, 32),
 				new MeshBasicMaterial({ color: 0x8b0000 })
@@ -289,6 +316,9 @@ export class BaseTrack extends Object3D {
 			this.circleMeshP3.name = 'end';
 			this.circleMeshP3.userData.isOpenEnd =
 				this.outboundTrack === undefined;
+			this.circleMeshP3.userData.isOpenForDivergingEnd =
+				this.circleMeshP3.userData.isOpenEnd &&
+				this.circleMeshP3.userData.isOpenEnd;
 			this.add(
 				this.circleMeshP0,
 				this.circleMeshP1,

@@ -1,5 +1,5 @@
-export const TrackTypes ={
-    CONCRETE: {nam: "concrete", hex: "#d1d1d1"}
+export const TrackTypes = {
+	CONCRETE: { nam: 'concrete', hex: '#d1d1d1' },
 } as const;
 
-type TrackType = typeof TrackTypes[keyof typeof TrackTypes];
+export type TrackType = (typeof TrackTypes)[keyof typeof TrackTypes];

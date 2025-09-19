@@ -256,10 +256,18 @@ export class BaseTrack extends Object3D {
 			}
 
 			if (endNode.name === 'end') {
-				endTrack.outboundDiverging = newTrack;
+				if (endTrack.outboundTrack) {
+					endTrack.outboundDiverging = newTrack;
+				} else {
+					endTrack.outboundTrack = newTrack;
+				}
 				newTrack.outboundTrack = endTrack;
 			} else {
-				endTrack.inboundDiverging = newTrack;
+				if (endTrack.inboundTrack) {
+					endTrack.inboundDiverging = newTrack;
+				} else {
+					endTrack.inboundDiverging = newTrack;
+				}
 				newTrack.outboundTrack = endTrack;
 			}
 		}
@@ -272,14 +280,25 @@ export class BaseTrack extends Object3D {
 	setLowestColor() {
 		let firstColor = -1;
 		let secondColor = -1;
-
+		let firstDivergingColor = -1;
+		let secondDivergingColor = -1;
 		if (this.inboundTrack != undefined)
 			firstColor = this.inboundTrack.MATERIAL.color.getHex();
 		if (this.outboundTrack != undefined)
 			secondColor = this.outboundTrack.MATERIAL.color.getHex();
+		if (this.inboundDiverging)
+			firstDivergingColor = this.inboundDiverging.MATERIAL.color.getHex();
+		if (this.outboundDiverging)
+			secondDivergingColor =
+				this.outboundDiverging.MATERIAL.color.getHex();
 		const allowedColor =
-			this.colors.find((c) => c !== firstColor && c !== secondColor) ||
-			this.colors[0];
+			this.colors.find(
+				(c) =>
+					c !== firstColor &&
+					c !== secondColor &&
+					c !== firstDivergingColor &&
+					c !== secondDivergingColor
+			) || this.colors[0];
 		this.MATERIAL.color.setHex(allowedColor);
 	}
 
@@ -325,13 +344,19 @@ export class BaseTrack extends Object3D {
 				this.circleMeshP2,
 				this.circleMeshP3
 			);
-			if (this.outboundTrack === undefined) {
+			if (
+				this.outboundTrack === undefined &&
+				this.outboundDiverging === undefined
+			) {
 				this.dragControls.objects.push(
 					this.circleMeshP2,
 					this.circleMeshP3
 				);
 			}
-			if (this.inboundTrack === undefined) {
+			if (
+				this.inboundTrack === undefined &&
+				this.inboundDiverging === undefined
+			) {
 				this.dragControls.objects.push(
 					this.circleMeshP0,
 					this.circleMeshP1
@@ -395,6 +420,8 @@ export class BaseTrack extends Object3D {
 			bezierCurve: this.bezierCurve.toJSON(),
 			inboundTrack: this.inboundTrack?.uuid || '',
 			outboundTrack: this.outboundTrack?.uuid || '',
+			inboundDiverging: this.inboundDiverging?.uuid || '',
+			outboundDiverging: this.outboundDiverging?.uuid || '',
 		};
 	}
 }

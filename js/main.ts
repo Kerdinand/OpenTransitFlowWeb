@@ -59,6 +59,24 @@ const tracksToJoin = [];
 
 function onItemClick(): void {
 	raycaster.setFromCamera(pointer, camera);
+	console.log(newTrackVectors);
+	if (createNewTrack && newTrackVectors.length === 1) {
+		new TrackFactory(scene, renderer, camera).createNewTrackFromMouse(
+			newTrackVectors[0],
+			absolutePointer,
+			renderer.domElement
+		);
+
+		newTrackVectors.length = 0;
+		createNewTrack = false;
+		return;
+	}
+
+	if (createNewTrack && newTrackVectors.length === 0) {
+		newTrackVectors.push(absolutePointer.clone());
+
+		return;
+	}
 
 	const intersects = raycaster.intersectObjects(scene.children, true);
 	//.filter((e) => e.object.parent instanceof BaseTrack);
@@ -128,7 +146,9 @@ const gridHelper: GridHelper = new GridHelper(10, 10);
 let showGridHelper: boolean = false;
 let joinTracks = false;
 let createJunction = false;
+let createNewTrack = false;
 const joinCircles: Mesh[] = [];
+const newTrackVectors: Vector2[] = [];
 
 window.addEventListener('keydown', (e) => {
 	if (e.ctrlKey) {
@@ -183,15 +203,8 @@ window.addEventListener('keydown', (e) => {
 		joinTracks = false;
 	}
 	if (e.key.toLowerCase() === 't') {
-		return new TrackFactory(
-			scene,
-			renderer,
-			camera
-		).createNewTrackFromMouse(
-			new Vector2(0, 0),
-			absolutePointer,
-			renderer.domElement
-		);
+		createNewTrack = !createNewTrack;
+		if (!createNewTrack) newTrackVectors.length = 0;
 	}
 	if (e.key.toLowerCase() === 'r') {
 		scene.remove(currentItem);

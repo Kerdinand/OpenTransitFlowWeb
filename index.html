@@ -4,13 +4,17 @@
 		<meta charset="UTF-8" />
 		<link rel="stylesheet" href="style.css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script type="module" src="js/main.ts" defer></script>
 		<title>OpenTransitFlow</title>
 	</head>
 	<body>
 		<div class="wrapper">
 			<div id="map" class="right"></div>
 		</div>
-
-		<script type="module" src="js/main.js" defer></script>
+		<button id="download">Download</button>
+		<form id="jsonForm">
+			<input type="file" id="jsonFile" accept=".json" />
+			<button type="submit">Load JSON</button>
+		</form>
 	</body>
 </html>

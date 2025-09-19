@@ -404,7 +404,34 @@ export class BaseTrack extends Object3D {
 			if (this.outboundTrack.outboundTrack?.uuid == this.uuid)
 				this.outboundTrack.outboundTrack = undefined;
 		}
+
 		this.dispose();
+	}
+
+	outboundIsSetToStraight: boolean = true;
+
+	getOutboundTrack() {
+		if (this.outboundTrack && this.outboundDiverging) {
+			return this.outboundIsSetToStraight
+				? this.outboundTrack
+				: this.outboundDiverging;
+		}
+		if (this.outboundTrack) return this.outboundTrack;
+		if (this.outboundDiverging) return this.outboundDiverging;
+		return null;
+	}
+
+	inboundIsSetToStraight: boolean = true;
+
+	getInboundTrack() {
+		if (this.inboundTrack && this.inboundDiverging) {
+			return this.inboundIsSetToStraight
+				? this.inboundTrack
+				: this.inboundDiverging;
+		}
+		if (this.inboundTrack) return this.inboundTrack;
+		if (this.inboundDiverging) return this.inboundDiverging;
+		return null;
 	}
 
 	dispose() {

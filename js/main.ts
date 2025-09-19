@@ -132,6 +132,7 @@ function onItemClick(): void {
 			circle.parent.joinTwoTracks(scene, joinCircles[0], circle, true);
 			joinCircles.length = 0;
 			createJunction = false;
+			return;
 		}
 	}
 
@@ -245,4 +246,36 @@ function lat2tile(lat: number, zoom: number) {
 			2) *
 			Math.pow(2, zoom)
 	);
+}
+
+const downloadButton = document.getElementById('download');
+if (downloadButton && downloadButton instanceof HTMLButtonElement) {
+	downloadButton.addEventListener('click', (event) => downloadHandler(event));
+}
+
+function downloadHandler(event: Event) {
+	event.preventDefault();
+	console.log('triggered');
+	const trackStore: { [id: string]: Object } = {};
+	scene.children.forEach((item) => {
+		if (item instanceof BaseTrack) {
+			trackStore[item.uuid] = item.toJSON();
+		}
+	});
+	const data = JSON.stringify(Object.values(trackStore));
+	const url = URL.createObjectURL(
+		new Blob([data], { type: 'application/json' })
+	);
+	const a = document.createElement('a');
+	a.href = url;
+	a.download = 'network.json'; // filename for download
+	a.click();
+
+	// Clean up
+	URL.revokeObjectURL(url);
+}
+
+function readJsonFileHandler(event: Event) {
+	event.preventDefault();
+	console.log(event.target);
 }

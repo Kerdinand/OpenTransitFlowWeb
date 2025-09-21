@@ -56,12 +56,12 @@ mainWindow.addEventListener('click', onItemClick);
 
 let currentItem: BaseTrack;
 const tracksToJoin = [];
-
+const trackFactory = new TrackFactory(scene, renderer, camera);
 function onItemClick(): void {
 	raycaster.setFromCamera(pointer, camera);
 	console.log(newTrackVectors);
 	if (createNewTrack && newTrackVectors.length === 1) {
-		new TrackFactory(scene, renderer, camera).createNewTrackFromMouse(
+		trackFactory.createNewTrackFromMouse(
 			newTrackVectors[0],
 			absolutePointer,
 			renderer.domElement
@@ -249,8 +249,40 @@ function lat2tile(lat: number, zoom: number) {
 }
 
 const downloadButton = document.getElementById('download');
+const form = document.getElementById('jsonForm') as HTMLFormElement | null;
 if (downloadButton && downloadButton instanceof HTMLButtonElement) {
 	downloadButton.addEventListener('click', (event) => downloadHandler(event));
+}
+if (form) {
+	form.addEventListener('submit', (event) => {
+		event.preventDefault();
+
+		const fd = new FormData(event.currentTarget as HTMLFormElement);
+		const file = fd.get('jsonFile') as File | null;
+
+		if (!file) {
+			console.warn('No file selected');
+			return;
+		}
+		scene.clear();
+		const reader = new FileReader();
+
+		reader.onload = () => {
+			try {
+				const text = reader.result as string;
+				const json = JSON.parse(text);
+				trackFactory.createTracksFromFile(json);
+			} catch (err) {
+				console.error('Invalid JSON file:', err);
+			}
+		};
+
+		reader.onerror = () => {
+			console.error('Error reading file:', reader.error);
+		};
+
+		reader.readAsText(file);
+	});
 }
 
 function downloadHandler(event: Event) {

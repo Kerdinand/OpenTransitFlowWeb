@@ -38,7 +38,6 @@ export default class TrackFactory {
 		(input as unknown as BaseTrackJson[]).forEach((element) => {
 			trackDtos[element.uuid] = element;
 		});
-		console.log(trackDtos);
 		Object.values(trackDtos).forEach((element) => {
 			const newTrack = this.createTrackFromDto(element);
 			newTracks[newTrack.uuid] = newTrack;
@@ -58,7 +57,6 @@ export default class TrackFactory {
 					newTracks[element.outboundDiverging];
 			this.scene.add(newTracks[element.uuid]);
 		});
-		console.log(newTracks);
 		return Object.values(newTracks);
 	}
 

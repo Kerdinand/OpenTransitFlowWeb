@@ -59,7 +59,6 @@ const tracksToJoin = [];
 const trackFactory = new TrackFactory(scene, renderer, camera);
 function onItemClick(): void {
 	raycaster.setFromCamera(pointer, camera);
-	console.log(newTrackVectors);
 	if (createNewTrack && newTrackVectors.length === 1) {
 		trackFactory.createNewTrackFromMouse(
 			newTrackVectors[0],
@@ -305,9 +304,4 @@ function downloadHandler(event: Event) {
 
 	// Clean up
 	URL.revokeObjectURL(url);
-}
-
-function readJsonFileHandler(event: Event) {
-	event.preventDefault();
-	console.log(event.target);
 }

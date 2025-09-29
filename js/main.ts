@@ -78,6 +78,7 @@ function onItemClick(): void {
 	}
 
 	const intersects = raycaster.intersectObjects(scene.children, true);
+	console.log(intersects)
 	//.filter((e) => e.object.parent instanceof BaseTrack);
 	// check if nothing hit and no track selected currently; unselect mode
 	if (

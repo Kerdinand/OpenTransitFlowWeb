@@ -1,22 +1,22 @@
 {
-  "name": "opentransitflowweb",
-  "version": "1.0.0",
-  "main": "main.js",
-  "scripts": {
-    "test": "jest"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "three": "^0.180.0"
-  },
-  "devDependencies": {
-    "@babel/preset-typescript": "^7.27.1",
-    "@types/jest": "^30.0.0",
-    "@types/three": "^0.180.0",
-    "jest": "^30.2.0",
-    "typescript": "^5.9.2",
-    "vite": "^6.3.6"
-  }
+	"name": "opentransitflowweb",
+	"version": "1.0.0",
+	"main": "main.js",
+	"scripts": {
+		"test": "jest"
+	},
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"three": "^0.180.0"
+	},
+	"devDependencies": {
+		"@babel/preset-typescript": "^7.27.1",
+		"@types/jest": "^30.0.0",
+		"@types/three": "^0.180.0",
+		"jest": "^30.2.0",
+		"typescript": "^5.9.2",
+		"vite": "^6.3.6"
+	}
 }

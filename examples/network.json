@@ -1,0 +1,178 @@
+[
+	{
+		"uuid": "b7edb153-151e-4c49-af82-930d691d2df1",
+		"lerpSteps": 100,
+		"type": "concrete",
+		"bezierCurve": {
+			"metadata": {
+				"version": 4.7,
+				"type": "Curve",
+				"generator": "Curve.toJSON"
+			},
+			"arcLengthDivisions": 200,
+			"type": "CubicBezierCurve",
+			"v0": [-17.55, -1.0999999999999988],
+			"v1": [-13.866666666666667, -1.0499999999999998],
+			"v2": [-10.183333333333332, -1.0000000000000009],
+			"v3": [-6.499999999999998, -0.950000000000002]
+		},
+		"inboundTrack": "a6125dc0-6c98-48b3-8a16-f6761d2d2c4a",
+		"outboundTrack": "88b1a233-e2f6-4e01-acda-e604013d6a85",
+		"inboundDiverging": "",
+		"outboundDiverging": ""
+	},
+	{
+		"uuid": "c935bfbd-48f1-499a-a99c-bc53aaaada9c",
+		"lerpSteps": 100,
+		"type": "concrete",
+		"bezierCurve": {
+			"metadata": {
+				"version": 4.7,
+				"type": "Curve",
+				"generator": "Curve.toJSON"
+			},
+			"arcLengthDivisions": 200,
+			"type": "CubicBezierCurve",
+			"v0": [2.7, 2.4],
+			"v1": [5.433333333333334, 4.65],
+			"v2": [8.166666666666666, 6.9],
+			"v3": [10.899999999999999, 9.15]
+		},
+		"inboundTrack": "",
+		"outboundTrack": "33042b4e-5b84-4c45-9206-d96212dba7ae",
+		"inboundDiverging": "2762fd67-13f9-440f-a3bb-a1da05711057",
+		"outboundDiverging": ""
+	},
+	{
+		"uuid": "88b1a233-e2f6-4e01-acda-e604013d6a85",
+		"lerpSteps": 100,
+		"type": "concrete",
+		"bezierCurve": {
+			"metadata": {
+				"version": 4.7,
+				"type": "Curve",
+				"generator": "Curve.toJSON"
+			},
+			"arcLengthDivisions": 200,
+			"type": "CubicBezierCurve",
+			"v0": [-6.499999999999998, -0.950000000000002],
+			"v1": [-2.8166666666666647, -0.9000000000000035],
+			"v2": [-1.1500000000000012, -0.9500000000000015],
+			"v3": [2.2499999999999964, -4.050000000000002]
+		},
+		"inboundTrack": "b7edb153-151e-4c49-af82-930d691d2df1",
+		"outboundTrack": "7458479d-ebda-444e-9042-939baff90b02",
+		"inboundDiverging": "",
+		"outboundDiverging": ""
+	},
+	{
+		"uuid": "80a96b17-2fe4-4754-9593-0fe84fa9ca1b",
+		"lerpSteps": 100,
+		"type": "concrete",
+		"bezierCurve": {
+			"metadata": {
+				"version": 4.7,
+				"type": "Curve",
+				"generator": "Curve.toJSON"
+			},
+			"arcLengthDivisions": 200,
+			"type": "CubicBezierCurve",
+			"v0": [-17.986356765218176, 1.350511429470308],
+			"v1": [-14.262219186981875, 1.4732851957857895],
+			"v2": [-10.538081608745575, 1.5960589621012713],
+			"v3": [-6.813944030509274, 1.7188327284167528]
+		},
+		"inboundTrack": "a6125dc0-6c98-48b3-8a16-f6761d2d2c4a",
+		"outboundTrack": "2762fd67-13f9-440f-a3bb-a1da05711057",
+		"inboundDiverging": "",
+		"outboundDiverging": ""
+	},
+	{
+		"uuid": "2762fd67-13f9-440f-a3bb-a1da05711057",
+		"lerpSteps": 100,
+		"type": "concrete",
+		"bezierCurve": {
+			"metadata": {
+				"version": 4.7,
+				"type": "Curve",
+				"generator": "Curve.toJSON"
+			},
+			"arcLengthDivisions": 200,
+			"type": "CubicBezierCurve",
+			"v0": [2.7, 2.4],
+			"v1": [-0.03333333333333366, 0.1499999999999999],
+			"v2": [-3.089806452272974, 1.841606494732234],
+			"v3": [-6.813944030509274, 1.7188327284167528]
+		},
+		"inboundTrack": "c935bfbd-48f1-499a-a99c-bc53aaaada9c",
+		"outboundTrack": "80a96b17-2fe4-4754-9593-0fe84fa9ca1b",
+		"inboundDiverging": "",
+		"outboundDiverging": ""
+	},
+	{
+		"uuid": "33042b4e-5b84-4c45-9206-d96212dba7ae",
+		"lerpSteps": 100,
+		"type": "concrete",
+		"bezierCurve": {
+			"metadata": {
+				"version": 4.7,
+				"type": "Curve",
+				"generator": "Curve.toJSON"
+			},
+			"arcLengthDivisions": 200,
+			"type": "CubicBezierCurve",
+			"v0": [12.85, -0.15000000000000124],
+			"v1": [16.35, 0.04999999999999852],
+			"v2": [13.633333333333331, 11.4],
+			"v3": [10.899999999999999, 9.15]
+		},
+		"inboundTrack": "7458479d-ebda-444e-9042-939baff90b02",
+		"outboundTrack": "c935bfbd-48f1-499a-a99c-bc53aaaada9c",
+		"inboundDiverging": "",
+		"outboundDiverging": ""
+	},
+	{
+		"uuid": "7458479d-ebda-444e-9042-939baff90b02",
+		"lerpSteps": 100,
+		"type": "concrete",
+		"bezierCurve": {
+			"metadata": {
+				"version": 4.7,
+				"type": "Curve",
+				"generator": "Curve.toJSON"
+			},
+			"arcLengthDivisions": 200,
+			"type": "CubicBezierCurve",
+			"v0": [12.85, -0.15000000000000124],
+			"v1": [9.349999999999998, -0.3500000000000006],
+			"v2": [5.649999999999993, -7.150000000000002],
+			"v3": [2.2499999999999964, -4.050000000000002]
+		},
+		"inboundTrack": "33042b4e-5b84-4c45-9206-d96212dba7ae",
+		"outboundTrack": "88b1a233-e2f6-4e01-acda-e604013d6a85",
+		"inboundDiverging": "",
+		"outboundDiverging": ""
+	},
+	{
+		"uuid": "a6125dc0-6c98-48b3-8a16-f6761d2d2c4a",
+		"lerpSteps": 100,
+		"type": "concrete",
+		"bezierCurve": {
+			"metadata": {
+				"version": 4.7,
+				"type": "Curve",
+				"generator": "Curve.toJSON"
+			},
+			"arcLengthDivisions": 200,
+			"type": "CubicBezierCurve",
+			"v0": [-17.55, -1.0999999999999988],
+			"v1": [-21.233333333333334, -1.1499999999999972],
+			"v2": [-21.710494343454478, 1.227737663154827],
+			"v3": [-17.986356765218176, 1.350511429470308]
+		},
+		"inboundTrack": "b7edb153-151e-4c49-af82-930d691d2df1",
+		"outboundTrack": "80a96b17-2fe4-4754-9593-0fe84fa9ca1b",
+		"inboundDiverging": "",
+		"outboundDiverging": ""
+	}
+]

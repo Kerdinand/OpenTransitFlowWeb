@@ -11,6 +11,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import TrackFactory from './TrackFactory';
 import { BaseTrack } from './BaseTrack';
 import TrackWalker from './TrackWalker';
+import { trackWs } from './wsClients';
 
 const CANVAS_SIZE = 800;
 let ws: WebSocket;
@@ -78,7 +79,7 @@ function onItemClick(): void {
 	}
 
 	const intersects = raycaster.intersectObjects(scene.children, true);
-	console.log(intersects)
+	console.log(intersects);
 	//.filter((e) => e.object.parent instanceof BaseTrack);
 	// check if nothing hit and no track selected currently; unselect mode
 	if (
@@ -165,8 +166,18 @@ window.addEventListener('keydown', (e) => {
 				trackStore[item.uuid] = item.toJSON();
 			}
 		});
+
+		const values = Object.values(trackStore);
+
 		console.log(trackStore);
-		console.log(JSON.stringify(Object.values(trackStore)));
+		console.log(JSON.stringify(values));
+
+		// send to backend
+		trackWs.sendJson({
+			type: 'tracks',
+			sentAt: new Date().toISOString(),
+			payload: values,
+		});
 	}
 	if (e.key.toLowerCase() === 'i') {
 		currentItem.setLowestColor();
@@ -250,9 +261,11 @@ function lat2tile(lat: number, zoom: number) {
 
 const downloadButton = document.getElementById('download');
 const form = document.getElementById('jsonForm') as HTMLFormElement | null;
+
 if (downloadButton && downloadButton instanceof HTMLButtonElement) {
 	downloadButton.addEventListener('click', (event) => downloadHandler(event));
 }
+
 if (form) {
 	form.addEventListener('submit', (event) => {
 		event.preventDefault();

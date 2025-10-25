@@ -173,11 +173,9 @@ window.addEventListener('keydown', (e) => {
 		console.log(JSON.stringify(values));
 
 		// send to backend
-		trackWs.sendJson({
-			type: 'tracks',
-			sentAt: new Date().toISOString(),
-			payload: values,
-		});
+		trackWs.sendJson(
+			values
+		);
 	}
 	if (e.key.toLowerCase() === 'i') {
 		currentItem.setLowestColor();
@@ -241,22 +239,6 @@ function onPointerMove(event: PointerEvent): void {
 	absolutePointer.y = (pointer.y * camera.top) / camera.zoom;
 	pointer.x = (x / CANVAS_SIZE) * 2 - 1;
 	pointer.y = -(y / CANVAS_SIZE) * 2 + 1;
-}
-
-function lon2tile(lon: number, zoom: number) {
-	return Math.floor(((lon + 180) / 360) * Math.pow(2, zoom));
-}
-function lat2tile(lat: number, zoom: number) {
-	return Math.floor(
-		((1 -
-			Math.log(
-				Math.tan((lat * Math.PI) / 180) +
-					1 / Math.cos((lat * Math.PI) / 180)
-			) /
-				Math.PI) /
-			2) *
-			Math.pow(2, zoom)
-	);
 }
 
 const downloadButton = document.getElementById('download');
